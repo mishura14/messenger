@@ -1,6 +1,7 @@
-from app.handler.register_handler import register_handler
-from app.postgres.postgres import db_connect
 from fastapi import FastAPI
+
+from app.database.postgres.postgres import db_connect
+from app.handler.register_handler import register_handler
 
 # Подключение к postgres
 db_connect()
