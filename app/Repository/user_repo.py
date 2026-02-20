@@ -13,7 +13,7 @@ def check_user_by_email(email):
 
 
 # функция регистрации пользователя
-def register_user(user: UserRegister):
+def register_user(name: str, email: str, password: str):
     with db_connect() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
@@ -22,7 +22,7 @@ def register_user(user: UserRegister):
                 VALUES (%s, %s, %s)
                 RETURNING id
                 """,
-                (user.name, user.email, user.password),
+                (name, email, password),
             )
             conn.commit()
             return cur.fetchone()

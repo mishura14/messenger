@@ -28,6 +28,11 @@ class UserRegister(BaseModel):
         return value
 
 
+# class для кода регистрации
+class CodeRegister(BaseModel):
+    code: str = Field(min_length=6, max_length=6)
+
+
 # создание таблиц для микраций
 class Base(DeclarativeBase):
     pass
