@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 from dotenv import load_dotenv
 from jose import jwt
@@ -7,12 +7,17 @@ from jose import jwt
 load_dotenv()
 
 
-# функция создания access_token
 def create_access_token(user_id: int):
-    expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode = {"sub": str(user_id), "type": "access", "exp": expire}
+    expire = datetime.now(UTC) + timedelta(minutes=15)
 
-    to_encode.update({"exp": expire, "type": "access"})
+    payload = {
+        "sub": str(user_id),
+        "type": "access",
+        "exp": expire,
+    }
+
     return jwt.encode(
-        to_encode, str(os.getenv("SECRET_KEY")), str(os.getenv("ALGORITHM"))
+        payload,
+        str(os.getenv("SECRET_KEY")),
+        str(os.getenv("ALGORITHM")),
     )
