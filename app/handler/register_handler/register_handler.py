@@ -1,7 +1,7 @@
 from app.core.core import rd, server
 from app.model.model import UserRegister
-from app.Repository.user_repo import check_user_by_email
-from app.Repository.user_repo_redis import save_code_redis
+from app.repository.user_repo import check_user_by_email
+from app.repository.user_repo_redis import save_code_redis
 from app.utils.generate_code.generate_code import generate_verification_code
 from app.utils.hash import hash
 from app.utils.smtp.smtp_register import send_verification_email

@@ -2,8 +2,8 @@ from fastapi import HTTPException
 
 from app.core.core import rd
 from app.model.model import CodeRegister
-from app.Repository.user_repo import register_user
-from app.Repository.user_repo_redis import get_verification_data
+from app.repository.user_repo import register_user
+from app.repository.user_repo_redis import get_verification_data
 
 
 # хендлер для подтверждения регистрации
