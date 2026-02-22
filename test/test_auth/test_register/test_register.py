@@ -24,17 +24,17 @@ def test_register_user_exists(mock_check_user_by_email):
 @patch("app.handler.register_handler.register_handler.save_code_redis")
 @patch("app.handler.register_handler.register_handler.send_verification_email")
 @patch("app.handler.register_handler.register_handler.generate_verification_code")
-@patch("app.handler.register_handler.register_handler.hash_password.hash_password")
+@patch("app.handler.register_handler.register_handler.hash.hash")
 @patch("app.handler.register_handler.register_handler.check_user_by_email")
 def test_register(
     mock_check_user_by_email,
-    mock_hash_password,
+    mock_hash,
     mock_generate_verification_code,
     mock_send_verification_email,
     mock_save_code_redis,
 ):
     mock_check_user_by_email.return_value = False
-    mock_hash_password.return_value = "hashed_pass"
+    mock_hash.return_value = "hashed_pass"
     mock_generate_verification_code.return_value = "123456"
 
     user = UserRegister(
@@ -46,9 +46,9 @@ def test_register(
     assert result["message"].startswith("код регистрации")
 
     mock_check_user_by_email.assert_called_once_with(user.email)
-    mock_hash_password.assert_called_once_with(user.password)
+    mock_hash.assert_called_once_with(user.password)
     mock_generate_verification_code.assert_called_once()
     mock_send_verification_email.assert_called_once()
     mock_save_code_redis.assert_called_once_with(
-        ANY, user.name, user.name, "hashed_pass", "123456"
+        ANY, user.name, user.email, "hashed_pass", "123456"
     )
