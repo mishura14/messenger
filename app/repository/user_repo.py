@@ -64,3 +64,29 @@ def delete_refresh_token(user_id: int):
                 (user_id,),
             )
             conn.commit()
+
+
+# функция получения refresh token
+def get_refresh_token(user_id: int):
+    with db_connect() as conn:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(
+                """SELECT refresh_token FROM refresh_tokens WHERE user_id = %s""",
+                (user_id,),
+            )
+            return cur.fetchone()
+
+
+# функция обновления refresh token
+def update_refresh_token(user_id: int, hash_refresh_token: str):
+    expires = datetime.utcnow() + timedelta(days=30)
+    with db_connect() as conn:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute(
+                """
+                UPDATE refresh_tokens SET hash_refresh_token = %s, expires_at = %s, created_at = %s, revoked = %s
+                WHERE user_id = %s
+                """,
+                (hash_refresh_token, expires, datetime.utcnow(), False, user_id),
+            )
+            conn.commit()
