@@ -64,6 +64,11 @@ class CodeRegister(BaseModel):
     code: str = Field(min_length=6, max_length=6)
 
 
+# class для обновления refresh token
+class RefreshUpdate(BaseModel):
+    refresh_token: str = Field(min_length=0, max_length=255)
+
+
 # создание таблиц для микраций
 class Base(DeclarativeBase):
     pass

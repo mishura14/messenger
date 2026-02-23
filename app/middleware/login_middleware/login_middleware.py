@@ -4,7 +4,7 @@ from app.utils.decoder_access_token import decoder_access_token
 from app.utils.decoder_access_token.decoder_access_token import decode_access_token
 
 
-def login_middleware(authorization: str = Header(None)):
+def user_middleware(authorization: str = Header(None)):
     if not authorization:
         raise HTTPException(status_code=401, detail="Unauthorized")
     try:

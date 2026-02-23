@@ -71,7 +71,7 @@ def get_refresh_token(user_id: int):
     with db_connect() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
-                """SELECT refresh_token FROM refresh_tokens WHERE user_id = %s""",
+                """SELECT hash_refresh_token FROM refresh_tokens WHERE user_id = %s""",
                 (user_id,),
             )
             return cur.fetchone()
