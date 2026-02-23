@@ -1,8 +1,4 @@
-from collections import UserList
-from unittest.mock import MagicMock, patch
-
-import pytest
-from redis.typing import ResponseT
+from unittest.mock import patch
 
 from app.handler.login_handler.login_handler import LoginHandler
 from app.model.model import UserLogin
